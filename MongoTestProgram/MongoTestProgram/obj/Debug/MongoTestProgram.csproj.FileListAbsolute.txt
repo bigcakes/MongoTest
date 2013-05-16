@@ -1,0 +1,17 @@
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\bin\Debug\MongoTestProgram.exe.config
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\obj\Debug\MongoTestProgram.csprojResolveAssemblyReference.cache
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\obj\Debug\MainWindow.baml
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\obj\Debug\MainWindow.g.cs
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\obj\Debug\App.g.cs
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\obj\Debug\MongoTestProgram_MarkupCompile.cache
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\obj\Debug\MongoTestProgram.g.resources
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\obj\Debug\MongoTestProgram.Properties.Resources.resources
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\obj\Debug\MongoTestProgram.csproj.GenerateResource.Cache
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\bin\Debug\MongoTestProgram.exe
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\bin\Debug\MongoTestProgram.pdb
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\bin\Debug\MongoDB.Bson.dll
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\bin\Debug\MongoDB.Driver.dll
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\bin\Debug\MongoDB.Bson.xml
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\bin\Debug\MongoDB.Driver.xml
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\obj\Debug\MongoTestProgram.exe
+C:\Users\bigcakes\Dropbox\MongoTest\MongoTestProgram\MongoTestProgram\obj\Debug\MongoTestProgram.pdb
