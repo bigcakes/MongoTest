@@ -69,11 +69,20 @@ namespace MongoTestProgram.Services
 
         public static List<User> UpdateUsers(List<User> users)
         {
-            throw new NotImplementedException();
             var returnedList = new List<User>();
 
             var collection = database.GetCollection<User>("users");
 
+            foreach(var user in users)
+            {
+                var currentUser = collection.AsQueryable().Single(u => u.Id == user.Id);
+
+                currentUser.username = user.username;
+                currentUser.firstName = user.firstName;
+                currentUser.lastName = user.lastName;
+
+                collection.Save(currentUser);
+            }
 
 
             return returnedList;
@@ -94,7 +103,7 @@ namespace MongoTestProgram.Services
             return success;
         }
 
-        public static List<User> SearchUsers(string searchBy, string searchUsing)
+        public static List<User> SearchUsers(string username = "", string firstName = "", string lastName = "")
         {
             var returnedList = new List<User>();
 
@@ -107,7 +116,7 @@ namespace MongoTestProgram.Services
 
             //returnedList.AddRange(entities);
 
-            var stuff = collection.AsQueryable().Where(e => searchBy != "username" || (e.username == searchUsing)).Where(e => searchBy != "firstName" || (e.firstName == searchUsing)).Where(e => searchBy != "lastName" || (e.lastName == searchUsing));
+            var stuff = collection.AsQueryable().Where(e => (e.username.Contains(username))).Where(e => (e.firstName.Contains(firstName))).Where(e => (e.lastName.Contains(lastName)));
 
             returnedList.AddRange(stuff);
 
