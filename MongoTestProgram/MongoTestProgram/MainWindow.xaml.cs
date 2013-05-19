@@ -46,6 +46,7 @@ namespace MongoTestProgram
             user.lastName = txtLastName.Text;
             user.dateAdded = DateTime.Now;
             user.lastUpdated = DateTime.Now;
+            user.deleted = false;
 
             var returnedList = Database.InsertUsers(new List<User>() { user });
             refreshTimers();
@@ -84,7 +85,7 @@ namespace MongoTestProgram
                     firstName = txtUpdateUserFirstName.Text,
                     lastName = txtUpdateUserLastName.Text,
                     Id = (ObjectId)listItem.Value,
-                    lastUpdated = DateTime.Now
+                    deleted = chkDeleted.IsChecked
                 };
 
                 var updatedUsers = Database.UpdateUsers(new List<User>() { updatedUser });
@@ -104,7 +105,8 @@ namespace MongoTestProgram
                     firstName = "Frank" + i.ToString(),
                     lastName = "Bob" + i.ToString(),
                     dateAdded = DateTime.Now,
-                    lastUpdated = DateTime.Now
+                    lastUpdated = DateTime.Now,
+                    deleted = false
                 };
 
                 userList.Add(newUser);
@@ -134,7 +136,8 @@ namespace MongoTestProgram
                 {
                     txtUpdateUserUsername.Text = user.username;
                     txtUpdateUserFirstName.Text = user.firstName;
-                    txtUpdateUserLastName.Text = user.lastName;                    
+                    txtUpdateUserLastName.Text = user.lastName;
+                    chkDeleted.IsChecked = user.deleted;
                 }
 
                 btnUpdateUser.IsEnabled = true;

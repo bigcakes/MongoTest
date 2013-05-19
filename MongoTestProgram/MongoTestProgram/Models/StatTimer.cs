@@ -10,10 +10,11 @@ using MongoDB.Driver.Builders;
 using MongoDB.Driver.GridFS;
 using MongoDB.Driver.Linq;
 using MongoTestProgram.Enums;
+using MongoTestProgram.Interfaces;
 
 namespace MongoTestProgram.Models
 {
-    public class StatTimer
+    public class StatTimer : IBaseRecord
     {
         public ObjectId Id { get; set; }
         public OperationType operation { get; set; }
@@ -23,6 +24,9 @@ namespace MongoTestProgram.Models
         public int modelPropertyCount { get; set; }
         public string methodName { get; set; }
         private Stopwatch timer { get; set; }
+        public bool? deleted { get; set; }
+        public DateTime dateAdded { get; set; }
+        public DateTime lastUpdated { get; set; }
 
         public StatTimer()
         {

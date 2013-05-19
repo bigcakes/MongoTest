@@ -13,6 +13,7 @@ using MongoDB.Driver.GridFS;
 using MongoDB.Driver.Linq;
 using MongoTestProgram.Models;
 using MongoTestProgram.Extensions;
+using MongoTestProgram.Interfaces;
 
 namespace MongoTestProgram.Services
 {
@@ -121,6 +122,8 @@ namespace MongoTestProgram.Services
                 currentUser.username = user.username;
                 currentUser.firstName = user.firstName;
                 currentUser.lastName = user.lastName;
+                currentUser.deleted = user.deleted;
+                currentUser.lastUpdated = DateTime.Now;
 
                 collection.Save(currentUser);
             }
@@ -195,14 +198,16 @@ namespace MongoTestProgram.Services
         /// <param name="timer">The timer object that has the required information</param>
         /// <param name="model">The model that is being used</param>
         /// <returns></returns>
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        public static bool RecordTimer(StatTimer timer, Type type)
+        //[MethodImpl(MethodImplOptions.NoInlining)]
+        public static bool RecordTimer(StatTimer timer, Type type, [CallerMemberName] string memberName = "")
         {
             var success = true;
             var props = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance);
             timer.modelPropertyCount = props.Count();
             timer.modelType = type.Name; //.GetType().ToString();
-            timer.methodName = new StackFrame(1, true).GetMethod().Name;
+            timer.methodName = memberName; //new StackFrame(1, true).GetMethod().Name;
+            timer.dateAdded = DateTime.Now;
+            timer.lastUpdated = DateTime.Now;
 
             InsertTimer(timer);
 
@@ -232,6 +237,31 @@ namespace MongoTestProgram.Services
             foundList.AddRange(collection.FindAll());
 
             return foundList;
+        }
+        
+        public static List<ObjectId> Insert<T>(List<T> records, string collectionName) where T: IBaseRecord
+        {
+            var returnedList = new List<ObjectId>();
+
+            var collection = database.GetCollection<T>(collectionName);
+
+            var timer = new StatTimer();
+
+            timer.startTimer();
+
+            foreach (var record in records)
+            {
+                collection.Insert(record);
+                returnedList.Add(record.Id);
+            }
+
+            timer.stopTimer();
+            timer.recordCount = records.Count();
+            timer.operation = Enums.OperationType.Insert;
+
+            var recorded = RecordTimer(timer, typeof(T));
+
+            return returnedList;
         }
 
     }
