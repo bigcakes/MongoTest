@@ -59,7 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Enums\OperationType.cs" />
+    <Compile Include="Extensions\ControlExtensions.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
+    <Compile Include="Models\StatTimer.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\Database.cs" />
     <Page Include="MainWindow.xaml">

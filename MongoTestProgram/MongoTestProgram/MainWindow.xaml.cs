@@ -19,6 +19,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.GridFS;
 using MongoDB.Driver.Linq;
+using MongoTestProgram.Enums;
 using MongoTestProgram.Extensions;
 
 namespace MongoTestProgram
@@ -31,6 +32,7 @@ namespace MongoTestProgram
         public MainWindow()
         {
             InitializeComponent();
+            refreshTimers();
         }
 
         //I know this code is not fantastic, just messing around with Mongo
@@ -42,8 +44,11 @@ namespace MongoTestProgram
             user.username = txtUsername.Text;
             user.firstName = txtFirstName.Text;
             user.lastName = txtLastName.Text;
+            user.dateAdded = DateTime.Now;
+            user.lastUpdated = DateTime.Now;
 
             var returnedList = Database.InsertUsers(new List<User>() { user });
+            refreshTimers();
         }
 
         private void btnGetUser_Click(object sender, RoutedEventArgs e)
@@ -64,6 +69,7 @@ namespace MongoTestProgram
             }
 
             btnUpdateUser.IsEnabled = false;
+            refreshTimers();
         }
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
@@ -77,10 +83,12 @@ namespace MongoTestProgram
                     username = txtUpdateUserUsername.Text,
                     firstName = txtUpdateUserFirstName.Text,
                     lastName = txtUpdateUserLastName.Text,
-                    Id = (ObjectId)listItem.Value
+                    Id = (ObjectId)listItem.Value,
+                    lastUpdated = DateTime.Now
                 };
 
                 var updatedUsers = Database.UpdateUsers(new List<User>() { updatedUser });
+                refreshTimers();
             }
         }
 
@@ -94,13 +102,16 @@ namespace MongoTestProgram
                 {
                     username = "toughGuy" + i.ToString(),
                     firstName = "Frank" + i.ToString(),
-                    lastName = "Bob" + i.ToString()
+                    lastName = "Bob" + i.ToString(),
+                    dateAdded = DateTime.Now,
+                    lastUpdated = DateTime.Now
                 };
 
                 userList.Add(newUser);
             }
 
             var returnedList = Database.InsertUsers(userList);
+            refreshTimers();
         }
 
         private void btnDeleteAllUsers_Click(object sender, RoutedEventArgs e)
@@ -108,6 +119,7 @@ namespace MongoTestProgram
             var returnedList = Database.SearchUsers().Select(u => u.Id).ToList();
 
             var success = Database.RemoveUsers(returnedList);
+            refreshTimers();
         }
 
         private void lstUserResults_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -131,6 +143,26 @@ namespace MongoTestProgram
             {
                 btnUpdateUser.IsEnabled = false;
             }
+            refreshTimers();
+        }
+
+        private void refreshTimers()
+        {
+            lstTimers.Items.Clear();
+
+            var timers = Database.GetAllTimers();
+
+            foreach(var timer in timers)
+            {
+                lstTimers.Items.Add(timer.ToString());
+            }
+
+            lstTimers.ScrollToBottom();
+        }
+
+        private void btnRefreshTimers_Click(object sender, RoutedEventArgs e)
+        {
+            refreshTimers();
         }
 
 
