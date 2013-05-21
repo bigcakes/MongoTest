@@ -163,7 +163,7 @@ namespace MongoTestProgram.Services
             return success;
         }
 
-        public static List<User> SearchUsers(string username = "", string firstName = "", string lastName = "")
+        public static List<User> SearchUsers(string username = "", string firstName = "", string lastName = "", bool? deleted = false)
         {
             var returnedList = new List<User>();
 
@@ -179,7 +179,7 @@ namespace MongoTestProgram.Services
 
             timer.startTimer();
 
-            var stuff = collection.AsQueryable().Where(e => (e.username.Contains(username))).Where(e => (e.firstName.Contains(firstName))).Where(e => (e.lastName.Contains(lastName)));
+            var stuff = collection.AsQueryable().Where(e => (e.username.Contains(username))).Where(e => (e.firstName.Contains(firstName))).Where(e => (e.lastName.Contains(lastName))).Where(e => e.deleted == deleted);
 
             returnedList.AddRange(stuff);
 

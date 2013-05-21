@@ -54,7 +54,7 @@ namespace MongoTestProgram
 
         private void btnGetUser_Click(object sender, RoutedEventArgs e)
         {
-            var users = Database.SearchUsers(txtGetUserUsername.Text, txtGetUserFirstName.Text, txtGetUserLastName.Text);
+            var users = Database.SearchUsers(txtGetUserUsername.Text, txtGetUserFirstName.Text, txtGetUserLastName.Text, chkGetUserDeleted.IsChecked);
 
             lstUserResults.Items.Clear();
 
